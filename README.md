@@ -11,12 +11,12 @@ get environment variables within Google Cloud Functions (GCF) through
 
 ## Usage
 
-Install it:
+### Install it:
 ~~~bash
 $ npm install --save gcf-runtime-config
 ~~~
 
-Enable Google Cloud's Runtime Config API:
+### Enable Google Cloud's Runtime Config API:
 ~~~bash
 $ gcloud services enable runtimeconfig.googleapis.com
 ~~~
@@ -34,7 +34,7 @@ $ gcloud beta runtime-config configs variables \
     --is-text
 ~~~
 
-Sample function code:
+### Sample function code:
 ~~~javascript
 const gcfRuntimeConfig = require('gcf-runtime-config');
 
@@ -52,26 +52,31 @@ directory is a ready-to-deploy sample function that uses
 and extracts a runtime config (environment).
 
 
-Deploy:
+### Deploy:
 
 ~~~ bash
 $ gcloud beta functions deploy testExpressApp --trigger-http
 ~~~
 
-Test:
+### Test:
 ~~~ bash
 $ curl https://<YOUR_PROJECT>.cloudfunctions.net/testRuntimeConfig
+{"PAYPAL_SECRET_KEY":"NOTREAL1234!@#$","STRIPE_SECRET_KEY":"YESREAL1234!@#$"}
 ~~~
 
-Cleanup:
+### Cleanup:
 ~~~ bash
 $ gcloud beta functions delete testExpressApp
 ~~~
 
-The [`example`](https://github.com/noless/gcf-runtime-config/tree/master/example)
-directory is a ready-to-deploy sample function that uses
-[`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) 
-and deploys an express app on GCF.
+## API
+
+### runtimeConfig.getVariables(config[, objectify=true])
+
+- **config** is a the name of the config, in our example its `EXAMPLE_ENVIRONMENT`.
+- **objectify** defaults to **true**, it means the function resolves to an object 
+where its keys and values are the variable names and values. 
+  * **objectify=true** in our example results in: `{"PAYPAL_SECRET_KEY":"NOTREAL1234!@#$","STRIPE_SECRET_KEY":"YESREAL1234!@#$"}`
 
 ## Why 
 
