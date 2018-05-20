@@ -1,6 +1,6 @@
 {
   "name": "gcf-runtime-config",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Environment Variables on Google Cloud Functions through Runtime Config",
   "author": "Noless",
   "license": "MIT",
