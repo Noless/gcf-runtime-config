@@ -7,6 +7,6 @@
   "license": "WTFPL",
   "private": false,
   "dependencies": {
-    "gcf-runtime-config": "^0.0.5"
+    "gcf-runtime-config": "^0.0.6"
   }
 }
