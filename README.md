@@ -12,13 +12,11 @@
 Edit `index.js`:
 
 ~~~js
-const gcfExpressApp = require('gcf-runtime-config')
+const gcfRuntimeConfig = require('gcf-runtime-config')
 const express = require('express')
 
-const app = express()
-app.get('/', (req, res) => res.send('Yup. I\'m alive.'))
-
-exports.testExpressApp = gcfExpressApp(app)
+exports.testRuntimeConfig = (req, res) =>
+res.send()gcfExpressApp(app)
 ~~~
 
 And then:

@@ -57,7 +57,6 @@ export const getVariablesValuesList = async (
       returnValues,
     })
     .catch(() => {
-      console.log('inside catch');
       throw new Error(
         `Couldn't fetch variables list for the specific config, please check its validity.`
       );

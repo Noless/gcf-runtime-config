@@ -1,20 +1,23 @@
 {
   "name": "gcf-runtime-config",
   "version": "0.0.5",
-  "description": "Run Express Apps on Google Cloud Functions",
+  "description": "Environment Variables on Google Cloud Functions through Runtime Config",
   "author": "Noless",
   "license": "MIT",
   "main": "lib/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/noless/gcf-express-app.git"
+    "url": "https://github.com/noless/gcf-runtime-config.git"
   },
   "keywords": [
-    "express",
-    "express app",
+    "environment",
+    "runtime config",
+    "environment variables",
     "gcf",
+    "gcp",
     "cloud functions",
-    "google cloud functions"
+    "google cloud functions",
+    "google cloud platform"
   ],
   "scripts": {
     "start": "babel-node --max-old-space-size=16384 index.js",
@@ -45,12 +48,12 @@
     "husky": "^0.14.3",
     "jest": "^22.1.4",
     "jest-junit": "^4.0.0",
-    "prettier": "^1.10.2"
-  },
-  "dependencies": {
+    "prettier": "^1.10.2",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-runtime": "^6.26.0",
-    "googleapis": "^30.0.0"
+    "babel-runtime": "^6.26.0"
+  },
+  "dependencies": {
+   "googleapis": "^30.0.0"
   }
 }
