@@ -2,17 +2,17 @@
 
 A ready-to-deploy sample function that uses
 [`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) 
-that extracts the runtime config (environment).
+and extracts a runtime config (environment).
 
 Set up our runtime config:
 
 ~~~bash
-gcloud beta runtime-config configs create EXAMPLE_ENVIRONMENT 
-gcloud beta runtime-config configs variables \
+$ gcloud beta runtime-config configs create EXAMPLE_ENVIRONMENT 
+$ gcloud beta runtime-config configs variables \
     set PAYPAL_SECRET_KEY "NOTREAL1234!@#$" \
     --config-name EXAMPLE_ENVIRONMENT \
     --is-text
-gcloud beta runtime-config configs variables \
+$ gcloud beta runtime-config configs variables \
     set STRIPE_SECRET_KEY "YESREAL1234!@#$" \
     --config-name EXAMPLE_ENVIRONMENT \
     --is-text
@@ -35,6 +35,11 @@ Now we can simply deploy:
 
 ~~~ bash
 $ gcloud beta functions deploy testRuntimeConfig--trigger-http
+~~~
+
+Test it:
+~~~ bash
+$ curl https://<YOUR_PROJECT>.cloudfunctions.net/testRuntimeConfig
 ~~~
 
 Cleanup:

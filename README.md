@@ -1,33 +1,66 @@
 # gcf-runtime-config 
 
-[`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) helps you run [`express`](https://expressjs.com) apps on Google Cloud Functions (GCF) without Firebase!
+[`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) helps you
+get environment variables within Google Cloud Functions (GCF) through
+[`Runtime Config`](https://cloud.google.com/deployment-manager/runtime-configurator/reference/rest/).
 
 [![CircleCI](https://circleci.com/gh/Noless/gcf-runtime-config.svg?style=svg)](https://circleci.com/gh/Noless/gcf-runtime-config)
 [![Coverage Status](https://coveralls.io/repos/github/Noless/gcf-runtime-config/badge.svg?branch=master)](https://coveralls.io/github/Noless/gcf-runtime-config?branch=master)
 [![MIT License](https://img.shields.io/npm/l/gcf-runtime-config.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![version](https://img.shields.io/npm/v/gcf-runtime-config.svg?style=flat-square)](http://npm.im/gcf-runtime-config)
 
-## Example
+## Usage
 
-Edit `index.js`:
-
-~~~js
-const gcfRuntimeConfig = require('gcf-runtime-config')
-const express = require('express')
-
-exports.testRuntimeConfig = (req, res) =>
-res.send()gcfExpressApp(app)
+Install it:
+~~~bash
+$ npm install --save gcf-runtime-config
 ~~~
 
-And then:
+Enable Google Cloud's Runtime Config API:
+~~~bash
+$ gcloud services enable runtimeconfig.googleapis.com
+~~~
+
+Create a new config:
+~~~
+$ gcloud beta runtime-config configs create EXAMPLE_ENVIRONMENT 
+$ gcloud beta runtime-config configs variables \
+    set PAYPAL_SECRET_KEY "NOTREAL1234!@#$" \
+    --config-name EXAMPLE_ENVIRONMENT \
+    --is-text
+$ gcloud beta runtime-config configs variables \
+    set STRIPE_SECRET_KEY "YESREAL1234!@#$" \
+    --config-name EXAMPLE_ENVIRONMENT \
+    --is-text
+~~~
+
+Sample function code:
+~~~javascript
+const gcfRuntimeConfig = require('gcf-runtime-config');
+
+exports.testRuntimeConfig = (req, res) => {
+  gcfRuntimeConfig
+    .getVariables('EXAMPLE_ENVIRONMENT')
+    .then(variablesObj => res.send(variablesObj))
+    .catch(err => res.send(err));
+};
+~~~
+
+The [`example`](https://github.com/noless/gcf-runtime-config/tree/master/example)
+directory is a ready-to-deploy sample function that uses
+[`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) 
+and extracts a runtime config (environment).
+
+
+Deploy:
 
 ~~~ bash
 $ gcloud beta functions deploy testExpressApp --trigger-http
 ~~~
 
-Test it:
+Test:
 ~~~ bash
-$ curl https://<YOUR_PROJECT>.cloudfunctions.net/testExpressApp
+$ curl https://<YOUR_PROJECT>.cloudfunctions.net/testRuntimeConfig
 ~~~
 
 Cleanup:
@@ -42,17 +75,8 @@ and deploys an express app on GCF.
 
 ## Why 
 
-I simply wanted to run express apps on GCF without using Firebase functions.
-
-Simply doing:
-
-~~~js
-const app = express()
-[...]
-exports.testExpressApp = app
-~~~
-
-Actually works. But then there's a problem with a trailing slash.
+We needed a way to inject secret keys to a Google Cloud Function.
+Storing keys in code base is wrong.
 
 ## License
 
