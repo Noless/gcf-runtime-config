@@ -3,7 +3,7 @@
 [`gcf-runtime-config`](https://www.npmjs.com/package/gcf-runtime-config) helps you run [`express`](https://expressjs.com) apps on Google Cloud Functions (GCF) without Firebase!
 
 [![CircleCI](https://circleci.com/gh/Noless/gcf-runtime-config.svg?style=svg)](https://circleci.com/gh/Noless/gcf-runtime-config)
-[![Coverage Status](https://coveralls.io/repos/github/Noless/gcf-runtime-config/badge.svg?branch=add_coveralls)](https://coveralls.io/github/Noless/gcf-runtime-config?branch=add_coveralls)
+[![Coverage Status](https://coveralls.io/repos/github/Noless/gcf-runtime-config/badge.svg?branch=master)](https://coveralls.io/github/Noless/gcf-runtime-config?branch=master)
 [![MIT License](https://img.shields.io/npm/l/gcf-runtime-config.svg?style=flat-square)](http://opensource.org/licenses/MIT)
 [![version](https://img.shields.io/npm/v/gcf-runtime-config.svg?style=flat-square)](http://npm.im/gcf-runtime-config)
 
