@@ -87,16 +87,16 @@ describe('gcf-runtime-config', () => {
     const project = 'testproject';
 
     const variables = [
-      { name: 'e/f/g/a', value: '1', updateTime: 'bla' },
-      { name: 'e/f/g/b', value: '2', updateTime: 'alb' },
+      { name: 'e/f/g/a', text: '1', updateTime: 'bla' },
+      { name: 'e/f/g/b', value: 'c2FyYQ==', updateTime: 'alb' },
     ];
 
     const dataVariables = { data: { variables } };
 
-    const expectedVariablesObj = { a: '1', b: '2' };
+    const expectedVariablesObj = { a: '1', b: 'sara' };
     const expectedVariablesArr = [
-      { name: 'a', value: '1', updateTime: 'bla' },
-      { name: 'b', value: '2', updateTime: 'alb' },
+      { name: 'a', text: '1', updateTime: 'bla' },
+      { name: 'b', value: 'c2FyYQ==', updateTime: 'alb' },
     ];
 
     const i = require('./index');
@@ -130,12 +130,29 @@ describe('gcf-runtime-config', () => {
   });
 
   test('variablesArrToObj', () => {
-    const variablesArr = [
-      { name: 'a', value: '1', updateTime: 'bla' },
-      { name: 'b', value: '2', updateTime: 'alb' },
+    const valueVariablesArr = [
+      { name: 'a', value: 'c2FyYQ==', updateTime: 'bla' },
+      { name: 'b', value: 'YmliaQ==', updateTime: 'alb' },
     ];
-    const expectedVariablesObj = { a: '1', b: '2' };
-    expect(variablesArrToObj(variablesArr)).toEqual(expectedVariablesObj);
+    const expectedValueVariablesObj = { a: 'sara', b: 'bibi' };
+    expect(variablesArrToObj(valueVariablesArr)).toEqual(
+      expectedValueVariablesObj
+    );
+
+    const textVariablesArr = [
+      { name: 'a', text: 'eldad', updateTime: 'bla' },
+      { name: 'b', text: 'yaniv', updateTime: 'alb' },
+    ];
+    const expectedTextVariablesObj = { a: 'eldad', b: 'yaniv' };
+    expect(variablesArrToObj(textVariablesArr)).toEqual(
+      expectedTextVariablesObj
+    );
+
+    const cantHappenVariablesArr = [{ name: 'a', updateTime: 'bla' }];
+    const expectedCantHappenVariablesArr = { a: 'No value or text fields' };
+    expect(variablesArrToObj(cantHappenVariablesArr)).toEqual(
+      expectedCantHappenVariablesArr
+    );
   });
 
   test('getShortVariableName', () => {

@@ -1,7 +1,8 @@
-const gcfExpressApp = require('gcf-express-app');
-const express = require('express');
+const gcfRuntimeConfig = require('gcf-runtime-config');
 
-const app = express();
-app.get('/', (req, res) => res.send("Yup. I'm alive."));
-
-exports.testExpressApp = gcfExpressApp(app);
+exports.testRuntimeConfig = (req, res) => {
+  gcfRuntimeConfig
+    .getVariables('EXAMPE_ENVIRONMENT')
+    .then(variablesObj => res.send(variablesObj))
+    .catch(err => res.send(err));
+};

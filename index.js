@@ -2,11 +2,12 @@
 
 import { google } from 'googleapis';
 
-type Variable = {
+type Variable = {|
   name: string,
-  value: string,
+  value?: string,
+  text?: string,
   updateTime: string,
-};
+|};
 
 type VariablesArr = Array<Variable>;
 
@@ -64,7 +65,13 @@ export const getVariablesValuesList = async (
 
 export const variablesArrToObj = (variablesArr: VariablesArr) => {
   const variablesObj = {};
-  variablesArr.forEach(v => (variablesObj[v.name] = v.value));
+  variablesArr.forEach(v => {
+    if (v.text) {
+      variablesObj[v.name] = v.text;
+    } else if (v.value) {
+      variablesObj[v.name] = Buffer.from(v.value, 'base64').toString();
+    } else variablesObj[v.name] = 'No value or text fields';
+  });
   return variablesObj;
 };
 
@@ -81,11 +88,10 @@ export const getVariables = async (
   );
   const { variables } = data;
 
-  const variablesShortNames = variables.map(
+  const variablesShortNames: Array<Variable> = variables.map(
     updateVariableName(getShortVariableName)
   );
+  const variablesObj = variablesArrToObj(variablesShortNames);
 
-  return objectify
-    ? variablesArrToObj(variablesShortNames)
-    : variablesShortNames;
+  return objectify ? variablesObj : variablesShortNames;
 };
