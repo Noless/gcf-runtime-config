@@ -73,10 +73,16 @@ $ gcloud beta functions delete testExpressApp
 
 ### runtimeConfig.getVariables(config[, objectify=true])
 
+**Arguments:**
 - **config** is a the name of the config, in our example its `EXAMPLE_ENVIRONMENT`.
 - **objectify** defaults to **true**, it means the function resolves to an object 
 where its keys and values are the variable names and values. 
   * **objectify=true** in our example results in: `{"PAYPAL_SECRET_KEY":"NOTREAL1234!@#$","STRIPE_SECRET_KEY":"YESREAL1234!@#$"}`
+  * **objectify=false** in our example results in: `[{"name":"STRIPE_SECRET_KEY","updateTime":"2018-05-20T09:53:11.383980095Z","text":"YESREAL1234!@#$"},{"name":"PAYPAL_SECRET_KEY","updateTime":"2018-05-20T09:53:09.683262561Z","text":"NOTREAL1234!@#$"}]`
+
+**Returns:**
+A `Promise` that depending on `objectify` resolves to either an object where its
+keys and values are the config's parameters and values or to an array of parameter objects.
 
 ## Why 
 

@@ -40,6 +40,7 @@ $ gcloud beta functions deploy testRuntimeConfig--trigger-http
 Test it:
 ~~~ bash
 $ curl https://<YOUR_PROJECT>.cloudfunctions.net/testRuntimeConfig
+{"PAYPAL_SECRET_KEY":"NOTREAL1234!@#$","STRIPE_SECRET_KEY":"YESREAL1234!@#$"}
 ~~~
 
 Cleanup:
