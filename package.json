@@ -54,6 +54,6 @@
     "babel-runtime": "^6.26.0"
   },
   "dependencies": {
-   "googleapis": "^30.0.0"
+   "googleapis": "^39.1.0"
   }
 }
